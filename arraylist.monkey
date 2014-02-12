@@ -1,5 +1,7 @@
 Strict
 
+'version 5
+' - added RequireSize() which lets you pre resize the list ahead of adding content
 'version 4
 ' - fixed Contains method missing return valu
 'version 3
@@ -203,6 +205,12 @@ Class ArrayList<T>
 	
 	Method ObjectEnumerator:ArrayListEnumerator<T>()
 		Return New ArrayListEnumerator<T>(Self)
+	End
+	
+	Method RequireSize:Void(count:Int)
+		' --- resizes ---
+		'force the data array to be at least speciffic size
+		If data.Length < count data = data.Resize(count)
 	End
 End
 
