@@ -1,5 +1,8 @@
 Strict
 
+'version 6
+' - add nullData:T
+' - fixed missing return in Compare
 'version 5
 ' - added RequireSize() which lets you pre resize the list ahead of adding content
 'version 4
@@ -13,6 +16,7 @@ Strict
 ' - first release
 
 Class ArrayList<T>
+	Global nullData:T
 	Field data:T[]
 	Field count:Int
 	
@@ -29,6 +33,7 @@ Class ArrayList<T>
 	
 	Method Compare:Bool(lhs:T, rhs:T)
 		Error "Unable to compare items"
+		Return False
 	End
 	
 	Method Clear:Void()
@@ -67,7 +72,7 @@ Class ArrayList<T>
 
 	Method RemoveFirst:T()
 		' --- remove and return first item ---
-		If count = 0 Return Null
+		If count = 0 Return nullData
 		
 		'get first item so we can return it
 		Local item:T = data[0]
@@ -80,10 +85,10 @@ Class ArrayList<T>
 			Next
 			
 			'null last one as this is now gone
-			data[count - 1] = Null
+			data[count - 1] = nullData
 		Else
 			'need to null first item
-			data[0] = Null
+			data[0] = nullData
 		EndIf
 		
 		'return first item
@@ -92,14 +97,14 @@ Class ArrayList<T>
 	
 	Method RemoveLast:T()
 		' --- remove and return last item ---
-		If count = 0 Return Null
+		If count = 0 Return nullData
 		
 		'get last item
 		Local item:= data[count - 1]
 		
 		'null and remove
 		count -= 1
-		data[count] = Null
+		data[count] = nullData
 		
 		'return last item
 		Return item
@@ -133,7 +138,7 @@ Class ArrayList<T>
 	Method Remove:T(index:Int)
 		' --- remove item at index ---
 		'skip
-		If index < 0 or index >= count Return Null
+		If index < 0 or index >= count Return nullData
 		
 		'get old item
 		Local item:T = data[index]
@@ -144,7 +149,7 @@ Class ArrayList<T>
 		Next
 		
 		'null last one otherwise it doesn't count as gone
-		data[count - 1] = Null
+		data[count - 1] = nullData
 		
 		'decrease count
 		count -= 1
